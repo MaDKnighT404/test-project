@@ -11,6 +11,9 @@ services:
     volumes:
       - ./client:/app
     command: ["./run.sh"]
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
 
   server:
     image: golang:1.24.1-alpine
