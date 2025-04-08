@@ -1,16 +1,12 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
-import './styles.scss';
+import AppRoutes from "./shared/routing/AppRoutes";
 
-const container = document.getElementById('root');
-if (container) {
-  const root = createRoot(container);
-  root.render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  );
-}
+import "./styles.scss";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <AppRoutes />
+  </StrictMode>
+);
