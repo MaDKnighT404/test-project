@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
 
-import Button from "../../../shared/components/Button";
-
 interface UserProps {
   id: number;
   name: string;
   description: string;
   isactive: boolean;
-  onClick: (id: string) => void;
+  onClick: (id: number) => void;
 }
 
 const User = ({ id, name, description, isactive, onClick }: UserProps) => {
+  const handleButtonClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    onClick(id);
+  };
+
   return (
     <li className={isactive ? "list-item active" : "list-item"}>
       <Link to={`/user/${id}`}>
@@ -18,9 +22,9 @@ const User = ({ id, name, description, isactive, onClick }: UserProps) => {
           <div>
             ID: <b>{id}</b>
           </div>
-          <Button onClick={onClick} id={id} disabled={isactive}>
+          <button onClick={handleButtonClick} disabled={isactive}>
             {isactive ? "Active" : "Set Active"}
-          </Button>
+          </button>
         </div>
         <div>{name}</div>
         <div className={"list-item__description"}>{description}</div>
@@ -28,5 +32,4 @@ const User = ({ id, name, description, isactive, onClick }: UserProps) => {
     </li>
   );
 };
-
 export default User;
