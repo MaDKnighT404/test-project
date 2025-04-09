@@ -1,20 +1,18 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import UserDescription from "../../modules/UserDecription/UserDescription";
+import UserList from "../../modules/UsersList/UserList";
+import SelectedUser from "../../modules/SelectedUser/SelectedUser";
 
 import { MainLayout } from "../layouts/MainLayout";
-import UserList from "../../modules/UsersList/UserList";
 
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<UserList />} />
-          <Route path="/:id" element={<UserDescription />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<UserList />} />
+        <Route path="/user/:id" element={<SelectedUser />} />
+      </Route>
+    </Routes>
   );
 };
 
