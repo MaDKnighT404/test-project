@@ -12,8 +12,8 @@ const FilterInput = ({ filterQuery, handleFilter }: ListFilterProps) => {
 
   return (
     <input
-      type="text"
-      placeholder="Search users..."
+      type="number"
+      placeholder="Search by ID..."
       value={filterQuery}
       onChange={handleQueryChange}
     />

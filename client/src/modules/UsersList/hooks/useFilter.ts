@@ -14,7 +14,7 @@ const useFilter = (users: User[]) => {
   useEffect(() => {
     if (filterQuery.length > 0) {
       const filtered = users.filter(
-        (user) => matchesFilter(user.name, filterQuery) || matchesFilter(user.id, filterQuery)
+        (user) => matchesFilter(user.id, filterQuery)
       );
       setFilteredUsers(filtered);
     } else {
