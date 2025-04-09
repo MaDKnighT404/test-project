@@ -3,6 +3,8 @@ import { BrowserRouter } from "react-router-dom";
 
 import AppRoutes from "./shared/routing/AppRoutes";
 
+import "./shared/styles/Layouts.scss";
+
 const queryClient = new QueryClient({});
 
 function App() {

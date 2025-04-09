@@ -12,6 +12,7 @@ const FilterInput = ({ filterQuery, handleFilter }: ListFilterProps) => {
 
   return (
     <input
+      className="filter-input"
       type="number"
       placeholder="Search by ID..."
       value={filterQuery}

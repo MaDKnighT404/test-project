@@ -18,7 +18,7 @@ const User = ({ id, name, description, isactive, onClick }: UserProps) => {
   return (
     <li className={isactive ? "list-item active" : "list-item"}>
       <Link to={`/user/${id}`}>
-        <div className={"list-item-actions"}>
+        <div className={"list-item__actions"}>
           <div>
             ID: <b>{id}</b>
           </div>

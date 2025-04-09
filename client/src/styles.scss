@@ -117,6 +117,16 @@ button:-moz-focusring,
   outline: 1px dotted ButtonText;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
@@ -163,18 +173,6 @@ textarea {
   font: inherit;
 }
 
-details {
-  display: block;
-}
-
-summary {
-  display: list-item;
-}
-
-template {
-  display: none;
-}
-
 ul,
 li {
   list-style-type: none;
@@ -184,62 +182,4 @@ li {
 
 [hidden] {
   display: none;
-}
-
-//
-
-.list-wrapper {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.list-container {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.list {
-  padding: 16px;
-
-  & > li:not(:last-child) {
-    margin-top: 8px;
-  }
-}
-
-.list-item {
-  background-color: #dcdbdb;
-  border-radius: 8px;
-
-  & > a {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 8px;
-  }
-
-  * {
-    text-decoration: none;
-    color: black;
-  }
-
-  &.active {
-    background-color: #dfbbbb;
-  }
-
-  &:hover {
-    background-color: #d3c5c5;
-  }
-}
-
-.list-item__description {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.list-item-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }

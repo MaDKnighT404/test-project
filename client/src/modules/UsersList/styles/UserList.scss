@@ -1,0 +1,44 @@
+.list-container {
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.list-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.list-item {
+  background-color: #dcdbdb;
+  border-radius: 8px;
+
+  &__description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  & > a {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+
+    text-decoration: none;
+    color: black;
+  }
+
+  &.active {
+    background-color: #dfbbbb;
+  }
+
+  &:hover {
+    background-color: #d3c5c5;
+  }
+}

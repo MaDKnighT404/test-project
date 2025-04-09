@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import useSelectedUser from "./hooks/useSelectedUser";
 
+import "./styles/SelectedUser.scss";
+
 const SelectedUser = () => {
   const { user, isLoading, error } = useSelectedUser();
 
   return (
-    <div className="detail">
+    <div className="user-selected-wrapper">
       <Link to={"/"}>Go Back</Link>
       <h2>User Details</h2>
       {isLoading && <div>Loading...</div>}

@@ -42,8 +42,10 @@ const UserList = () => {
       <div className="list-header">
         <h1 className={"list-title"}>User List</h1>
         <SubTitle>{activeItemText}</SubTitle>
-        <SortButton sortBy={sortBy} onSortClick={handleSort} />
-        <FilterInput filterQuery={filterQuery} handleFilter={handleFilter} />
+        <div className="list-actions">
+          <SortButton sortBy={sortBy} onSortClick={handleSort} />
+          <FilterInput filterQuery={filterQuery} handleFilter={handleFilter} />
+        </div>
       </div>
       <div className="list-container">
         <div className="list">
