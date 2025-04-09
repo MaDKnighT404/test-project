@@ -1,11 +1,19 @@
-import React from "react";
 import { Link } from "react-router-dom";
+
 import Button from "../../../shared/components/Button";
 
-const UserItem: React.FC<any> = ({ id, name, description, onClick, isactive }) => {
+interface UserProps {
+  id: number;
+  name: string;
+  description: string;
+  isactive: boolean;
+  onClick: (id: string) => void;
+}
+
+const User = ({ id, name, description, isactive, onClick }: UserProps) => {
   return (
     <li className={isactive ? "list-item active" : "list-item"}>
-      <Link to={`/${id}`}>
+      <Link to={`/user/${id}`}>
         <div className={"list-item-actions"}>
           <div>
             ID: <b>{id}</b>
@@ -21,4 +29,4 @@ const UserItem: React.FC<any> = ({ id, name, description, onClick, isactive }) =
   );
 };
 
-export default UserItem;
+export default User;

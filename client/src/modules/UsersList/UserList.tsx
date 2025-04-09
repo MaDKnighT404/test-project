@@ -1,75 +1,57 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import UserItem from "./components/UserItem";
-import useData from "./hooks/useData";
+import SubTitle from "./components/Subtitle";
+import SortButton from "./components/SortButton";
+import FilterInput from "./components/FilterInput";
+import User from "./components/User";
+
 import useSort from "./hooks/useSort";
-
-const SubTitle: React.FC<any> = ({ children }) => (
-  <h2 className={"list-subtitle"}>Active Item ID: {children}</h2>
-);
+import useFilter from "./hooks/useFilter";
+import getUsers from "./api/getUsers";
 
 const UserList = () => {
-  const items = useData();
-  const [sortedItems, sortBy, handleSortClick] = useSort(items);
+  const {
+    data: users = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
 
-  const [activeItemId, setActiveItemId] = useState<any>(null);
-  const [filteredItems, setFilteredItems] = useState<any[]>([]);
-  const [query, setQuery] = useState<string>("");
+  const { sortedUsers, sortBy, handleSort } = useSort(users);
+  const { filteredUsers, filterQuery, handleFilter } = useFilter(sortedUsers);
 
-  const activeItemText = useMemo(() => (activeItemId ? activeItemId : "Empty"), []);
+  const [activeItemId, setActiveItemId] = useState<number | null>(null);
 
-  const handleItemClick = (id: any) => {
+  const activeItemText = activeItemId !== null ? activeItemId : "Empty";
+
+  const handleItemClick = (id: number) => {
     setActiveItemId(id);
   };
-
-  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
-
-  useEffect(() => {
-    setFilteredItems(sortedItems);
-  }, [sortedItems]);
-
-  useEffect(() => {
-    if (query.length > 0) {
-      setFilteredItems(
-        filteredItems.filter((item) =>
-          `${item.id}`.includes(
-            query
-              .toLowerCase()
-              .trimStart()
-              .trimEnd()
-              .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-          )
-        )
-      );
-    }
-  }, [query, filteredItems]);
 
   return (
     <div className={"list-wrapper"}>
       <div className="list-header">
-        <h1 className={"list-title"}>Items List1</h1>
+        <h1 className={"list-title"}>User List</h1>
         <SubTitle>{activeItemText}</SubTitle>
-        <button onClick={handleSortClick}>Sort ({sortBy === "ASC" ? "ASC" : "DESC"})</button>
-        <input
-          type="text"
-          placeholder={"Filter by ID"}
-          value={query}
-          onChange={handleQueryChange}
-        />
+        <SortButton sortBy={sortBy} onSortClick={handleSort} />
+        <FilterInput filterQuery={filterQuery} handleFilter={handleFilter} />
       </div>
       <div className="list-container">
         <div className="list">
-          {filteredItems.length === 0 && <span>Loading...</span>}
-          {filteredItems.map((item, index) => (
-            <UserItem
-              key={index}
+          {error && <div>Error: {error.message}</div>}
+          {isLoading && <div>Loading...</div>}
+          {filteredUsers.length === 0 && !isLoading && <div>No users found</div>}
+          {filteredUsers.map((item) => (
+            <User
+              key={item.id}
               isactive={activeItemId === item.id}
               id={item.id}
               name={item.name}
               description={item.description}
-              onClick={handleItemClick}
+              onClick={() => handleItemClick(item.id)}
             />
           ))}
         </div>

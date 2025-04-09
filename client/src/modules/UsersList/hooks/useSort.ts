@@ -1,31 +1,28 @@
-import { useMemo, useState } from "react";
+import { useState, useEffect } from "react";
 
-function useSort(items: any[]): [any[], any, any] {
-  const [sortBy, setSortBy] = useState("ASC");
+import type { User } from "../types";
 
-  const sortedItems = useMemo(() => {
-    if (sortBy === "DESC") {
-      return items;
-    }
+const useSort = (initialUsers: User[]) => {
+  const [sortBy, setSortBy] = useState<string>("ASC");
+  const [sortedUsers, setSortedUsers] = useState<User[]>(initialUsers);
 
-    if (sortBy === "ASC") {
-      return items.sort((a, b) => b.id - a.id);
-    }
+  useEffect(() => {
+    const newSortedUsers = [...initialUsers].sort((a, b) => {
+      if (sortBy === "ASC") {
+        return a.id - b.id;
+      } else {
+        return b.id - a.id;
+      }
+    });
 
-    return items;
-  }, [items, sortBy]);
+    setSortedUsers(newSortedUsers);
+  }, [sortBy, initialUsers]);
 
-  const handleSortClick = () => {
-    if (sortBy === "ASC") {
-      setSortBy("DESC");
-    } else if (sortBy === "DESC") {
-      setSortBy("ASC");
-    } else {
-      setSortBy("");
-    }
+  const handleSort = () => {
+    setSortBy((prev) => (prev === "ASC" ? "DESC" : "ASC"));
   };
 
-  return [sortedItems, sortBy, handleSortClick];
-}
+  return { sortedUsers, sortBy, handleSort };
+};
 
 export default useSort;
