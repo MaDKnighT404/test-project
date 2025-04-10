@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 
 const useSelectedUser = () => {
   const { id } = useParams();
-  console.log(id);
 
   const {
     data: user,

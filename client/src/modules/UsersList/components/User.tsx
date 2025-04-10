@@ -1,35 +1,34 @@
 import { Link } from "react-router-dom";
+import { useUserContext } from "../context/UserContext";
+import type { User as UserType } from "../types";
 
-interface UserProps {
-  id: number;
-  name: string;
-  description: string;
-  isactive: boolean;
-  onClick: (id: number) => void;
-}
+const User = ({ user }: { user: UserType }) => {
+  const { activeUserId, setActiveUserId } = useUserContext();
 
-const User = ({ id, name, description, isactive, onClick }: UserProps) => {
-  const handleButtonClick = (event: React.MouseEvent) => {
+  const handleItemClick = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
-    onClick(id);
+    setActiveUserId(user.id);
   };
 
+  const isActive = user.id === activeUserId;
+
   return (
-    <li className={isactive ? "list-item active" : "list-item"}>
-      <Link to={`/user/${id}`}>
+    <li className={isActive ? "list-item active" : "list-item"}>
+      <Link to={`/user/${user.id}`}>
         <div className={"list-item__actions"}>
           <div>
-            ID: <b>{id}</b>
+            ID: <b>{user.id}</b>
           </div>
-          <button onClick={handleButtonClick} disabled={isactive}>
-            {isactive ? "Active" : "Set Active"}
+          <button onClick={handleItemClick} disabled={isActive}>
+            {isActive ? "Active" : "Set Active"}
           </button>
         </div>
-        <div>{name}</div>
-        <div className={"list-item__description"}>{description}</div>
+        <div>{user.name}</div>
+        <div className={"list-item__description"}>{user.description}</div>
       </Link>
     </li>
   );
 };
+
 export default User;
