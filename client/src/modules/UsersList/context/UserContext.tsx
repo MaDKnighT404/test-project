@@ -1,23 +1,17 @@
-import { createContext, useContext, useState, ReactNode, useRef, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
 interface UserContextType {
   activeUserId: number | null;
   setActiveUserId: (id: number | null) => void;
 }
 
-// Создаем глобальную переменную для хранения состояния между монтированиями
-let globalActiveUserId: number | null = null;
-
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Инициализируем состояние из глобальной переменной
-  const [activeUserId, setActiveUserId] = useState<number | null>(globalActiveUserId);
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+  const [activeUserId, setActiveUserId] = useState<number | null>(null);
 
-  // Обновляем глобальную переменную при изменении состояния
   const handleSetActiveUserId = (id: number | null) => {
     setActiveUserId(id);
-    globalActiveUserId = id;
   };
 
   return (
